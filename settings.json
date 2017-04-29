@@ -31,7 +31,7 @@
 		"hideMousePointer": false
 	},
 
-	"loaderColors": [0, 1],
+	"loaderColors": [1, 0],
 
 	"components": {
 		"pixelboxCore": true,
