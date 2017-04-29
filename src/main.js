@@ -35,7 +35,7 @@ exports.update = function () {
 
 	renderer.tiles(assets.bunny, bunnies);
 
-	if (btnp.A) {
+	if (btn.A) {
 		addBunny(BUNNY_BATCH_SIZE);
 		console.log(bunnies.length);
 	}
