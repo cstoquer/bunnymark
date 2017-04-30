@@ -14,3 +14,17 @@ canvas {
 	image-rendering: pixelated;
 	-ms-interpolation-mode: nearest-neighbor;
 }
+
+.stats {
+	position: absolute;
+	top: 0;
+	left: 0;
+	margin: 5px;
+}
+
+.bunniesCounter {
+	color: #f9954d;
+	background-color: #000;
+	font-size: 14px;
+	font-family: arial;
+}

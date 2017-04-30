@@ -1,9 +1,18 @@
 var renderer = require('./Renderer');
+var domUtils = require('domUtils');
 
 var BUNNY_BATCH_SIZE = 1000;
 var MAX_SPEED = 0.04;
 var bunnies = [];
 
+//▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
+var stats = new Stats();
+stats.domElement.className = 'stats';
+document.body.appendChild(stats.domElement);
+
+var bunniesCounter = domUtils.createDiv('bunniesCounter', stats.domElement);
+
+//▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
 function addBunny(count) {
 	for (var i = 0; i < count; i++) {
 		bunnies.push({
@@ -13,6 +22,7 @@ function addBunny(count) {
 			sy: (Math.random() - 0.5) * MAX_SPEED,
 		});
 	}
+	bunniesCounter.innerText = 'bunnies: ' + bunnies.length;
 }
 
 addBunny(BUNNY_BATCH_SIZE);
@@ -35,8 +45,10 @@ exports.update = function () {
 
 	renderer.tiles(assets.bunny, bunnies);
 
-	if (btnp.A) {
+	if (btn.A) {
 		addBunny(BUNNY_BATCH_SIZE);
 		console.log(bunnies.length);
 	}
+
+	stats.update();
 };

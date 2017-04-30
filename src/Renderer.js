@@ -3,7 +3,7 @@ var shaders = require('./shaders');
 
 
 var ITEM_SIZE      = 2;
-var BATCH_MAX_SIZE = 2048;
+var BATCH_MAX_SIZE = 32768;
 var FLOAT32_SIZE   = 4;
 
 function Renderer() {
