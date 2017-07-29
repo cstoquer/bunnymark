@@ -1,13 +1,21 @@
 {
 	"name": "pixelboxGL-bunnymark",
+	"version": "2.0.0",
+
 	"screen": {
-		"width":  400,
-		"height": 300,
-		"pixelSize": [2, 2],
+		"width":  900,
+		"height": 500,
+		"pixelSize": {
+			"width": 2,
+			"height": 2
+		},
 		"fullscreen": false
 	},
 
-	"tileSize": [8, 8],
+	"tileSize": {
+		"width": 8, 
+		"height": 8
+	},
 
 	"palette": [
 		"#000000", "#FFF1E8", "#008751", "#AB5236",

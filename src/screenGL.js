@@ -6,8 +6,8 @@ var INT16_SIZE = 2;
 
 var SCREEN_WIDTH  = settings.screen.width;
 var SCREEN_HEIGHT = settings.screen.height;
-var PIXEL_WIDTH   = settings.screen.pixelSize[0];
-var PIXEL_HEIGHT  = settings.screen.pixelSize[1];
+var PIXEL_WIDTH   = settings.screen.pixelSize.width  || settings.screen.pixelSize[0];
+var PIXEL_HEIGHT  = settings.screen.pixelSize.height || settings.screen.pixelSize[1];
 
 domUtils.removeDom($screen.canvas);
 var canvas = domUtils.createDom('canvas');
