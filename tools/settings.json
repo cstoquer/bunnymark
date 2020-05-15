@@ -5,7 +5,7 @@
 	},
 	"state": {
 		"globals": {
-			"zoom": 1
+			"zoom": 0
 		},
 		"mapEditor": {
 			"x": 144,
@@ -51,9 +51,9 @@
 		},
 		"console": {},
 		"settings": {
-			"x": 272,
+			"x": 224,
 			"y": 84,
-			"open": true
+			"open": false
 		},
 		"menu": {
 			"devtool": false
