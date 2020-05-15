@@ -1,8 +1,10 @@
-var renderer = require('./Renderer');
-var domUtils = require('domUtils');
+var domUtils = require('pixelbox/domUtils');
+
+var SCREEN_WIDTH  = settings.screen.width;
+var SCREEN_HEIGHT = settings.screen.height;
 
 var BUNNY_BATCH_SIZE = 1000;
-var MAX_SPEED = 0.04;
+var MAX_SPEED = 4;
 var bunnies = [];
 
 //▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
@@ -12,15 +14,19 @@ document.body.appendChild(stats.domElement);
 
 var bunniesCounter = domUtils.createDiv('bunniesCounter', stats.domElement);
 
+
+//▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
+function Bunny() {
+	this.x  = (Math.random()) * SCREEN_WIDTH;
+	this.y  = (Math.random()) * SCREEN_HEIGHT;
+	this.sx = (Math.random() - 0.5) * MAX_SPEED;
+	this.sy = (Math.random() - 0.5) * MAX_SPEED;
+}
+
 //▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
 function addBunny(count) {
 	for (var i = 0; i < count; i++) {
-		bunnies.push({
-			x:  (Math.random() - 0.5) * 2,
-			y:  (Math.random() - 0.5) * 2,
-			sx: (Math.random() - 0.5) * MAX_SPEED,
-			sy: (Math.random() - 0.5) * MAX_SPEED,
-		});
+		bunnies.push(new Bunny());
 	}
 	bunniesCounter.innerText = 'bunnies: ' + bunnies.length;
 }
@@ -30,20 +36,19 @@ addBunny(BUNNY_BATCH_SIZE);
 //▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
 // Update is called once per frame
 exports.update = function () {
-	// Clear canvas color as well as the depth buffer.
-	gl.clearColor(0.4, 0.4, 0.4, 1.0);
-	gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+	cls();
 
 	for (var i = 0; i < bunnies.length; i++) {
 		var bunny = bunnies[i];
 		bunny.x += bunny.sx;
 		bunny.y += bunny.sy;
 
-		if (bunny.x > 1 && bunny.sx > 0 || bunny.x < -1 && bunny.sx < 0) bunny.sx *= -1;
-		if (bunny.y > 1 && bunny.sy > 0 || bunny.y < -1 && bunny.sy < 0) bunny.sy *= -1;
+		if (bunny.x > SCREEN_WIDTH  && bunny.sx > 0 || bunny.x < 0 && bunny.sx < 0) bunny.sx *= -1;
+		if (bunny.y > SCREEN_HEIGHT && bunny.sy > 0 || bunny.y < 0 && bunny.sy < 0) bunny.sy *= -1;
+
+		draw(assets.bunny, bunny.x, bunny.y);
 	}
 
-	renderer.tiles(assets.bunny, bunnies);
 
 	if (btn.A) {
 		addBunny(BUNNY_BATCH_SIZE);

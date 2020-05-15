@@ -1,42 +1,63 @@
 {
-	"disposition": {
-		"mapEditor": {
-			"x": 160,
-			"y": 21,
-			"width": 392,
-			"height": 424
+	"windowSize": {
+		"width": 722,
+		"height": 470
+	},
+	"state": {
+		"globals": {
+			"zoom": 1
 		},
+		"mapEditor": {
+			"x": 144,
+			"y": 20,
+			"open": true,
+			"width": 296,
+			"height": 248,
+			"layers": []
+		},
+		"mapClipboard": {},
 		"tilesheet": {
-			"x": 560,
-			"y": 21,
-			"zoom": 2
+			"x": 448,
+			"y": 20,
+			"open": true
 		},
 		"tileBrush": {
-			"x": 656,
-			"y": 357,
+			"x": 0,
+			"y": 228,
+			"open": true,
 			"width": 136,
-			"height": 72,
-			"foldConfig": {}
+			"height": 216
 		},
 		"palette": {
-			"x": 0,
-			"y": 325
-		},
-		"fileExplorer": {
-			"x": 0,
-			"y": 21,
+			"x": 144,
+			"y": 292,
+			"open": true,
 			"width": 152,
-			"height": 280,
-			"assets": {
-				"maps.json": {},
-				"shaders": {
-					"tilepoint": {}
-				}
-			}
-		}
-	},
-	"windowSize": {
-		"width": 839,
-		"height": 506
+			"height": 152
+		},
+		"spriter": {
+			"x": 0,
+			"y": 20,
+			"open": false,
+			"zoom": 5
+		},
+		"assets": {
+			"x": 0,
+			"y": 20,
+			"open": true,
+			"width": 136,
+			"height": 184,
+			"assets": {}
+		},
+		"console": {},
+		"settings": {
+			"x": 272,
+			"y": 84,
+			"open": true
+		},
+		"menu": {
+			"devtool": false
+		},
+		"colorPicker": {}
 	}
 }
