@@ -1,29 +1,40 @@
 {
-	"name": "pixelboxGL-bunnymark",
-	"version": "2.0.0",
-
+	"name": "bunnymark",
+	"version": "2.0.2",
 	"screen": {
-		"width":  900,
+		"width": 900,
 		"height": 500,
 		"pixelSize": {
-			"width": 2,
-			"height": 2
+			"width": 1,
+			"height": 1
 		},
-		"fullscreen": false
+		"fullscreen": true,
+		"resizable": true
 	},
-
 	"tileSize": {
-		"width": 8, 
+		"width": 8,
 		"height": 8
 	},
-
-	"palette": [
-		"#000000", "#FFF1E8", "#008751", "#AB5236",
-		"#7E2553", "#5F574F", "#29ADFF", "#00E756",
-		"#FFA300", "#FF77A8", "#C2C3C7", "#83769C",
-		"#FFFF27", "#FFCCAA", "#1D2B53", "#FF004D"
-	],
-
+	"palette": {
+		"colors": [
+			"#000000",
+			"#FFF1E8",
+			"#008751",
+			"#AB5236",
+			"#7E2553",
+			"#5F574F",
+			"#29ADFF",
+			"#00E756",
+			"#FFA300",
+			"#FF77A8",
+			"#C2C3C7",
+			"#83769C",
+			"#FFFF27",
+			"#FFCCAA",
+			"#1D2B53",
+			"#FF004D"
+		]
+	},
 	"controls": {
 		"up": 38,
 		"down": 40,
@@ -32,19 +43,27 @@
 		"A": 32,
 		"B": 88
 	},
-
 	"touchEvent": {
 		"multiTouch": false,
 		"disableContextMenu": false,
 		"hideMousePointer": false
 	},
-
-	"loaderColors": [1, 0],
-
 	"components": {
 		"pixelboxCore": true,
 		"keyboard": true,
 		"AudioManager": false,
 		"TINA": false
-	}
+	},
+	"loader": {
+		"colors": [
+			"#FFF1E8",
+			"#000000"
+		],
+		"custom": ""
+	},
+	"appid": "cPiatxf9V2CKye92",
+	"buildOptions": {
+		"hasAtlas": false
+	},
+	"gamepad": {}
 }

@@ -1,9 +1,10 @@
 var renderer = require('./Renderer');
-var domUtils = require('domUtils');
+var domUtils = require('pixelbox/domUtils');
 
-var BUNNY_BATCH_SIZE = 1000;
-var MAX_SPEED = 0.04;
-var bunnies = [];
+var BUNNY_BATCH_SIZE = 97;
+var MAX_SPEED        = 0.04;
+var bunnies          = [];
+var nBunnies         = 0
 
 //▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
 var stats = new Stats();
@@ -13,19 +14,23 @@ document.body.appendChild(stats.domElement);
 var bunniesCounter = domUtils.createDiv('bunniesCounter', stats.domElement);
 
 //▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
-function addBunny(count) {
-	for (var i = 0; i < count; i++) {
-		bunnies.push({
-			x:  (Math.random() - 0.5) * 2,
-			y:  (Math.random() - 0.5) * 2,
-			sx: (Math.random() - 0.5) * MAX_SPEED,
-			sy: (Math.random() - 0.5) * MAX_SPEED,
-		});
-	}
-	bunniesCounter.innerText = 'bunnies: ' + bunnies.length;
+function Bunny() {
+	this.x  = (Math.random() - 0.5) * 2;
+	this.y  = (Math.random() - 0.5) * 2;
+	this.sx = (Math.random() - 0.5) * MAX_SPEED;
+	this.sy = (Math.random() - 0.5) * MAX_SPEED;
 }
 
-addBunny(BUNNY_BATCH_SIZE);
+//▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
+function addBunny(count) {
+	for (var i = 0; i < count; i++) {
+		bunnies.push(new Bunny());
+	}
+	nBunnies += count;
+	bunniesCounter.innerText = 'bunnies: ' + nBunnies;
+}
+
+addBunny(2);
 
 //▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
 // Update is called once per frame
@@ -34,7 +39,7 @@ exports.update = function () {
 	gl.clearColor(0.4, 0.4, 0.4, 1.0);
 	gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
-	for (var i = 0; i < bunnies.length; i++) {
+	for (var i = 0; i < nBunnies; i++) {
 		var bunny = bunnies[i];
 		bunny.x += bunny.sx;
 		bunny.y += bunny.sy;
@@ -45,10 +50,7 @@ exports.update = function () {
 
 	renderer.tiles(assets.bunny, bunnies);
 
-	if (btn.A) {
-		addBunny(BUNNY_BATCH_SIZE);
-		console.log(bunnies.length);
-	}
+	if (btn.A) addBunny(BUNNY_BATCH_SIZE);
 
 	stats.update();
 };
