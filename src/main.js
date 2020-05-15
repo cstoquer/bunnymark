@@ -1,9 +1,13 @@
-var renderer = require('./Renderer');
-var domUtils = require('domUtils');
+var domUtils = require('pixelbox/domUtils');
 
-var BUNNY_BATCH_SIZE = 1000;
-var MAX_SPEED = 0.04;
-var bunnies = [];
+var SCREEN_WIDTH  = settings.screen.width;
+var SCREEN_HEIGHT = settings.screen.height;
+
+var BUNNY_BATCH_SIZE = 97;
+var MAX_SPEED        = 16;
+var bunnies          = [];
+var nBunnies         = 0;
+var currentSprite    = 0;
 
 //▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
 var stats = new Stats();
@@ -12,43 +16,46 @@ document.body.appendChild(stats.domElement);
 
 var bunniesCounter = domUtils.createDiv('bunniesCounter', stats.domElement);
 
+
+//▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
+function Bunny() {
+	this.sprite = currentSprite;
+	this.x  = (Math.random()) * 20;
+	this.y  = (Math.random()) * 20;
+	this.sx = (Math.random() - 0.5) * MAX_SPEED;
+	this.sy = (Math.random() - 0.5) * MAX_SPEED;
+}
+
 //▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
 function addBunny(count) {
 	for (var i = 0; i < count; i++) {
-		bunnies.push({
-			x:  (Math.random() - 0.5) * 2,
-			y:  (Math.random() - 0.5) * 2,
-			sx: (Math.random() - 0.5) * MAX_SPEED,
-			sy: (Math.random() - 0.5) * MAX_SPEED,
-		});
+		bunnies.push(new Bunny());
 	}
-	bunniesCounter.innerText = 'bunnies: ' + bunnies.length;
+	nBunnies += count;
+	bunniesCounter.innerText = 'bunnies: ' + nBunnies;
 }
 
-addBunny(BUNNY_BATCH_SIZE);
+addBunny(2);
+paper(1);
 
 //▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
 // Update is called once per frame
 exports.update = function () {
-	// Clear canvas color as well as the depth buffer.
-	gl.clearColor(0.4, 0.4, 0.4, 1.0);
-	gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+	cls();
 
-	for (var i = 0; i < bunnies.length; i++) {
+	for (var i = 0; i < nBunnies; i++) {
 		var bunny = bunnies[i];
 		bunny.x += bunny.sx;
 		bunny.y += bunny.sy;
 
-		if (bunny.x > 1 && bunny.sx > 0 || bunny.x < -1 && bunny.sx < 0) bunny.sx *= -1;
-		if (bunny.y > 1 && bunny.sy > 0 || bunny.y < -1 && bunny.sy < 0) bunny.sy *= -1;
+		if (bunny.x > SCREEN_WIDTH  && bunny.sx > 0 || bunny.x < -16 && bunny.sx < 0) bunny.sx *= -1;
+		if (bunny.y > SCREEN_HEIGHT && bunny.sy > 0 || bunny.y < -16 && bunny.sy < 0) bunny.sy *= -1;
+
+		sprite(bunny.sprite, bunny.x, bunny.y);
 	}
 
-	renderer.tiles(assets.bunny, bunnies);
-
-	if (btn.A) {
-		addBunny(BUNNY_BATCH_SIZE);
-		console.log(bunnies.length);
-	}
+	if (btnp.A) currentSprite = (currentSprite + 1) % 5;
+	if (btn.A) addBunny(BUNNY_BATCH_SIZE);
 
 	stats.update();
 };
