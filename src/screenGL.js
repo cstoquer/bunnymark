@@ -1,4 +1,4 @@
-var domUtils = require('domUtils');
+var domUtils = require('pixelbox/domUtils');
 
 var INT16_SIZE = 2;
 //▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄

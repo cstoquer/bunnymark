@@ -1,7 +1,7 @@
 var renderer = require('./Renderer');
 var domUtils = require('pixelbox/domUtils');
 
-var BUNNY_BATCH_SIZE = 97;
+var BUNNY_BATCH_SIZE = 997;
 var MAX_SPEED        = 0.04;
 var bunnies          = [];
 var nBunnies         = 0
